@@ -22,10 +22,10 @@
   :focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:2px}
   .progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--ember);transition:width .2s;z-index:200}
   .site-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-  .logo{font-family:'DM Sans',sans-serif;font-weight:500;font-size:20px;letter-spacing:-0.02em;color:var(--ink)}
-  .logo span{color:var(--ember)}
+  .logo img{height:38px;width:auto;display:block}
+  .logo{display:flex;align-items:center}
   .header-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.15em;text-transform:uppercase}
-  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 48px 64px;overflow:hidden;background:var(--paper)}
+  .hero{position:relative;padding:150px 48px 64px;overflow:hidden;background:var(--paper)}
   .hero-content{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) both}
   @keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
   .eyebrow{display:flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink);opacity:.6;text-transform:uppercase;font-weight:500;margin-bottom:28px}
@@ -96,7 +96,7 @@
   .success-screen h2{font-family:'DM Sans',sans-serif;font-weight:300;font-size:clamp(34px,4.8vw,52px);color:var(--ink);letter-spacing:-0.04em;margin-bottom:12px}
   .success-screen p{font-size:14px;color:var(--mute);max-width:380px;line-height:1.7}
   .site-footer{text-align:center;padding:24px 48px;border-top:1px solid var(--line);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--mute);position:relative;z-index:1;background:var(--ink);color:rgba(255,255,255,.55)}
-  @media(max-width:580px){.site-header{padding:16px 24px}.hero{padding:100px 24px 52px}.form-wrap{padding:60px 24px 100px}.two-col{grid-template-columns:1fr}.scale-row{grid-template-columns:80px 1fr 80px}.scale-row .sl,.scale-row .sr{font-size:10px}}
+  @media(max-width:580px){.site-header{padding:16px 24px}.hero{padding:120px 24px 52px}.form-wrap{padding:60px 24px 100px}.two-col{grid-template-columns:1fr}.scale-row{grid-template-columns:80px 1fr 80px}.scale-row .sl,.scale-row .sr{font-size:10px}}
   </style>
 </head>
 <body>
@@ -104,7 +104,7 @@
 <div class="progress-bar" id="progressBar"></div>
 
 <header class="site-header">
-  <div class="logo">THE <span>DESYNER</span></div>
+  <div class="logo"><img src="assets/logo.png" alt="The Desyner"></div>
   <div class="header-tag">Brand Discovery &middot; Confidential</div>
 </header>
 
