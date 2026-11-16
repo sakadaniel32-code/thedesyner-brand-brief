@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Desyner &mdash; Brand Brief Responses</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFFFF;--paper-warm:#FAFAF8;--ink:#0A0A0A;--ember:#F05E1C;--line:#E8E6E1;--mute:#6B6B6B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper-warm);color:var(--ink);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+/* gate */
+#gate{position:fixed;inset:0;background:var(--paper);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px}
+.gate-card{max-width:380px;width:100%;text-align:center}
+.gate-card img{height:56px;margin-bottom:28px}
+.gate-card h1{font-weight:300;font-size:26px;letter-spacing:-.03em}
+.gate-card p{color:var(--mute);font-size:13px;margin:10px 0 26px;line-height:1.6}
+.gate-card input{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:8px;font-size:15px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-align:center;background:var(--paper-warm)}
+.gate-card input:focus{outline:none;border-color:var(--ember)}
+.gate-card button{width:100%;margin-top:12px;padding:14px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.gate-card button:hover{background:var(--ember)}
+.gate-err{color:#c0392b;font-size:12px;margin-top:12px;min-height:16px}
+/* header */
+.site-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.site-header .logo img{height:34px;width:auto;display:block}
+.header-right{display:flex;align-items:center;gap:14px}
+.header-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.15em;text-transform:uppercase}
+.signout{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid var(--line);border-radius:6px;padding:7px 12px;color:var(--mute)}
+.signout:hover{border-color:var(--ember);color:var(--ember)}
+/* body */
+.wrap{max-width:1080px;margin:0 auto;padding:32px 24px 80px}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat{flex:1;min-width:140px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.stat b{display:block;font-size:30px;font-weight:300;letter-spacing:-.03em}
+.stat span{font-family:'DM Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.15em;text-transform:uppercase}
+.toolbar{display:flex;gap:12px;margin-bottom:18px}
+.toolbar input{flex:1;padding:12px 16px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--paper)}
+.toolbar input:focus{outline:none;border-color:var(--ember)}
+.btn{padding:12px 18px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.btn:hover{border-color:var(--ember);color:var(--ember)}
+.btn.primary{background:var(--ember);color:#fff;border-color:var(--ember)}
+.btn.primary:hover{opacity:.88;color:#fff}
+table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);font-weight:500}
+td{padding:14px 16px;border-bottom:1px solid var(--line);font-size:14px}
+tr:last-child td{border-bottom:none}
+tr.row:hover td{background:var(--paper-warm);cursor:pointer}
+td .sub{display:block;font-size:11px;color:var(--mute);margin-top:2px}
+.view{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);background:none;border:none}
+.empty{padding:48px;text-align:center;color:var(--mute);font-size:14px}
+/* modal */
+#modal{position:fixed;inset:0;background:rgba(10,10,10,.45);display:none;z-index:40;padding:24px;overflow-y:auto}
+#modal.open{display:flex}
+.sheet{background:var(--paper);border-radius:16px;max-width:720px;width:100%;margin:24px auto;padding:36px 36px 44px;position:relative}
+.sheet .close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;color:var(--mute);line-height:1}
+.sheet .close:hover{color:var(--ember)}
+.sheet .mono-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ember);margin-bottom:10px}
+.sheet h2{font-weight:300;font-size:30px;letter-spacing:-.03em}
+.sheet .who{font-family:'DM Mono',monospace;font-size:11px;color:var(--mute);margin:10px 0 26px;letter-spacing:.05em}
+.fgroup{margin-bottom:26px;border-top:1px solid var(--line);padding-top:18px}
+.fgroup h3{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+.frow{margin-bottom:12px}
+.frow .fl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:3px}
+.frow .fv{font-size:14px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:'DM Mono',monospace;font-size:11px;border:1px solid var(--ember);color:var(--ember);border-radius:999px;padding:5px 12px}
+.swatch{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line);vertical-align:-2px;margin-right:6px}
+.scales{display:grid;grid-template-columns:1fr;gap:10px}
+.scale-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;font-size:12px}
+.scale-row .bar{height:6px;border-radius:99px;background:var(--line);position:relative;overflow:hidden}
+.scale-row .bar i{position:absolute;top:0;bottom:0;left:0;background:var(--ember);border-radius:99px}
+.scale-row .lab{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.scale-row .lab.r{text-align:right}
+.scale-row .num{font-family:'DM Mono',monospace;font-size:11px;color:var(--ember);min-width:34px;text-align:center}
+
+.tabs{display:flex;gap:8px;margin-bottom:22px}
+.tab{padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:var(--paper);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--mute)}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+#qView .qcard{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.qcard .qmain{flex:1;min-width:220px}
+.qcard .qlabel{font-size:15px}
+.qcard .qmeta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-top:4px}
+.qcard .qmeta .off{color:#c0392b}
+.qcard .qmeta .on{color:#1e8e5a}
+.qactions{display:flex;gap:8px}
+.qactions .btn{padding:8px 12px;font-size:10px}
+#qForm{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:22px}
+#qForm .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+#qForm label.fl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:5px}
+#qForm input[type=text],#qForm select{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+#qForm input:focus,#qForm select:focus{outline:none;border-color:var(--ember)}
+#qForm .checkline{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
+@media(max-width:640px){#qForm .grid{grid-template-columns:1fr}}
+@media(max-width:640px){
+ .site-header{padding:12px 18px}
+ .site-header .logo img{height:26px}
+ .wrap{padding:22px 14px 60px}
+ .sheet{padding:26px 20px 36px}
+ th:nth-child(4),td:nth-child(4){display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <img src="assets/logo.png" alt="The Desyner">
+    <h1>Brand Brief Responses</h1>
+    <p>Private dashboard. Enter your passcode to continue.</p>
+    <input id="pass" type="text" autocomplete="off" placeholder="Passcode">
+    <button onclick="login()">Enter</button>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <header class="site-header">
+    <div class="logo"><img src="assets/logo.png" alt="The Desyner"></div>
+    <div class="header-right">
+      <div class="header-tag">Brief Responses &middot; Confidential</div>
+      <button class="signout" onclick="logout()">Sign out</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="tabs"><button class="tab on" id="tabResp" onclick="showTab('resp')">Responses</button><button class="tab" id="tabQ" onclick="showTab('q')">Form questions</button></div>
+    <div id="rView"><div class="stats">
+      <div class="stat"><b id="stTotal">0</b><span>Total briefs</span></div>
+      <div class="stat"><b id="stToday">0</b><span>Today</span></div>
+      <div class="stat"><b id="stWeek">0</b><span>This week</span></div>
+    </div>
+    <div class="toolbar">
+      <input id="q" type="text" placeholder="Search name, business, email&hellip;" oninput="render()">
+      <button class="btn" onclick="load()">Refresh</button>
+      <button class="btn primary" onclick="downloadCSV()">Download CSV</button>
+    </div>
+    <table>
+      <thead><tr><th>Received</th><th>Name</th><th>Business</th><th>Email</th><th></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">No briefs match. New submissions appear here automatically on refresh.</div>
+    </div>
+    <div id="qView" style="display:none">
+      <div id="qForm">
+        <div class="grid">
+          <div><label class="fl">Question text</label><input type="text" id="nqLabel" placeholder="e.g. What is your budget range?"></div>
+          <div><label class="fl">Answer type</label><select id="nqType"><option value="text">Short text</option><option value="textarea">Long text</option><option value="choice">Multiple choice</option><option value="email">Email</option><option value="phone">Phone</option></select></div>
+          <div id="nqOptsWrap" style="display:none"><label class="fl">Options (comma separated)</label><input type="text" id="nqOpts" placeholder="Under 50k, 50k to 150k, Above 150k"></div>
+          <div style="display:flex;align-items:flex-end"><label class="checkline"><input type="checkbox" id="nqReq"> Required question</label></div>
+        </div>
+        <button class="btn primary" onclick="addQ()">Add question</button>
+        <div class="gate-err" id="qErr" style="color:#c0392b;font-size:12px;margin-top:10px;min-height:14px"></div>
+      </div>
+      <div id="qList"></div>
+    </div>
+  </div>
+</div>
+
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="sheet">
+    <button class="close" onclick="closeModal()">&times;</button>
+    <div id="detail"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL='https://wyffeifapgjyndsickzw.supabase.co';
+const ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmZlaWZhcGdqeW5kc2lja3p3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNzM3NjgsImV4cCI6MjEwOTY0OTc2OH0.AXafD7_W1P5VsxagcBbFzX1oYZ3sewuLIEvrbaIaogQ';
+const COLS=['created_at','custom_answers','full_name','role','email','phone','business_name','industry','one_liner','business_description','vision','mission','why_exist','core_values','target_audience','customer_feeling','competitors','personality','scale_serious_playful','scale_traditional_modern','scale_minimal_expressive','scale_accessible_premium','scale_local_global','brand_as_person','brand_voice','visual_style','custom_color_hex','preferred_colors','colors_to_avoid','brand_references','visual_links','final_notes','referral'];
+let data=[],pass='';
+const $=id=>document.getElementById(id);
+
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+async function login(){
+  pass=$('pass').value.trim();
+  if(!pass){$('gateErr').textContent='Enter your passcode.';return}
+  $('gateErr').textContent='Checking…';
+  const r=await rpc(pass);
+  if(r.error){$('gateErr').textContent='Wrong passcode. Try again.';return}
+  sessionStorage.setItem('bbAdmin',pass);
+  boot();
+}
+function logout(){sessionStorage.removeItem('bbAdmin');location.reload()}
+function rpc(p){
+  return fetch(SUPABASE_URL+'/rest/v1/rpc/list_brand_briefs',{
+    method:'POST',
+    headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},
+    body:JSON.stringify({p_passcode:p})
+  }).then(r=>r.json().then(j=>({ok:r.ok,status:r.status,data:j})));
+}
+async function load(){
+  const r=await rpc(pass);
+  if(r.status===404||(r.error&&String(r.error.message||'').includes('bad passcode'))){logout();return}
+  data=Array.isArray(r.data)?r.data:[];
+  render();
+}
+function boot(){
+  $('gate').style.display='none';$('app').style.display='block';
+  load();
+}
+function render(){
+  const q=$('q').value.trim().toLowerCase();
+  const list=q?data.filter(d=>COLS.some(c=>String(d[c]??'').toLowerCase().includes(q))):data;
+  $('stTotal').textContent=data.length;
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime(),week=today-6*864e5;
+  $('stToday').textContent=data.filter(d=>new Date(d.created_at).getTime()>=today).length;
+  $('stWeek').textContent=data.filter(d=>new Date(d.created_at).getTime()>=week).length;
+  $('empty').style.display=list.length?'none':'block';
+  $('rows').innerHTML=list.map(d=>`<tr class="row" onclick="show('${d.id}')">
+    <td>${esc(fmtDate(d.created_at))}</td>
+    <td>${esc(d.full_name)}<span class="sub">${esc(d.role||'')}</span></td>
+    <td>${esc(d.business_name)}<span class="sub">${esc(d.industry||'')}</span></td>
+    <td>${esc(d.email)}<span class="sub">${esc(d.phone||'')}</span></td>
+    <td><button class="view">View</button></td></tr>`).join('');
+}
+function fmtDate(s){
+  return new Date(s).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true});
+}
+function closeModal(){$('modal').classList.remove('open')}
+function frow(label,val){return val?`<div class="frow"><span class="fl">${label}</span><div class="fv">${esc(val)}</div></div>`:''}
+function show(id){
+  const d=data.find(x=>x.id===id);if(!d)return;
+  const scales=[
+    ['scale_serious_playful','Serious','Playful'],
+    ['scale_traditional_modern','Traditional','Modern'],
+    ['scale_minimal_expressive','Minimal','Expressive'],
+    ['scale_accessible_premium','Accessible','Premium'],
+    ['scale_local_global','Local','Global']
+  ].map(([k,l,r])=>{const v=+d[k]||3;return `<div class="scale-row"><span class="lab">${l}</span><div class="bar"><i style="width:${(v/5)*100}%"></i></div><span class="num">${v}/5</span><span class="lab r">${r}</span></div>`}).join('');
+  const chips=(Array.isArray(d.personality)&&d.personality.length)?`<div class="chips">${d.personality.map(p=>`<span class="chip">${esc(p)}</span>`).join('')}</div>`:'';
+  const hex=d.custom_color_hex?`<div class="frow"><span class="fl">Custom colour</span><div class="fv"><span class="swatch" style="background:${esc(d.custom_color_hex)}"></span>${esc(d.custom_color_hex)}</div></div>`:'';
+  const body=[
+    ['One-liner',d.one_liner],['About the business',d.business_description],['Vision',d.vision],['Mission',d.mission],
+    ['Why they exist',d.why_exist],['Core values',d.core_values],['Target audience',d.target_audience],
+    ['How customers should feel',d.customer_feeling],['Competitors',d.competitors],
+    ['Brand as a person',d.brand_as_person],['Brand voice',d.brand_voice],['Visual style',d.visual_style],
+    ['Preferred colours',d.preferred_colors],['Colours to avoid',d.colors_to_avoid],['Brand references',d.brand_references],
+    ['Visual links',d.visual_links],['Final notes',d.final_notes],['How they found us',d.referral]
+  ];
+  $('detail').innerHTML=`
+    <div class="mono-tag">Client Brief</div>
+    <h2>${esc(d.business_name||d.full_name)}</h2>
+    <div class="who">${esc(d.full_name||'')} &middot; ${esc(d.role||'')} &middot; ${esc(fmtDate(d.created_at))}${d.email?` &middot; <a href="mailto:${esc(d.email)}" style="color:var(--ember)">${esc(d.email)}</a>`:''}${d.phone?` &middot; <a href="tel:${esc(d.phone)}" style="color:var(--ember)">${esc(d.phone)}</a>`:''}</div>
+    <div class="fgroup"><h3>01 &middot; About</h3>${frow('Business',d.business_name)}${frow('Industry',d.industry)}${frow('One-liner',d.one_liner)}${frow('About the business',d.business_description)}</div>
+    <div class="fgroup"><h3>02 &middot; Brand core</h3>${frow('Vision',d.vision)}${frow('Mission',d.mission)}${frow('Why they exist',d.why_exist)}${frow('Core values',d.core_values)}</div>
+    <div class="fgroup"><h3>03 &middot; Audience</h3>${frow('Target audience',d.target_audience)}${frow('How customers should feel',d.customer_feeling)}${frow('Competitors',d.competitors)}</div>
+    <div class="fgroup"><h3>04 &middot; Personality</h3>${chips}<div class="scales" style="margin-top:14px">${scales}</div>${frow('If the brand were a person',d.brand_as_person)}${frow('Brand voice',d.brand_voice)}</div>
+    <div class="fgroup"><h3>05 &middot; Visual</h3>${frow('Visual style',d.visual_style)}${hex}${frow('Preferred colours',d.preferred_colors)}${frow('Colours to avoid',d.colors_to_avoid)}${frow('Brand references',d.brand_references)}${frow('Visual links',d.visual_links)}</div>
+    ${customBlock(d)}
+    <div class="fgroup"><h3>06 &middot; Extra</h3>${frow('Final notes',d.final_notes)}${frow('How they found us',d.referral)}</div>`;
+  $('modal').classList.add('open');
+}
+function showTab(t){
+  $('rView').style.display=t==='resp'?'block':'none';
+  $('qView').style.display=t==='q'?'block':'none';
+  $('tabResp').classList.toggle('on',t==='resp');
+  $('tabQ').classList.toggle('on',t==='q');
+  if(t==='q')loadQ();
+}
+$('nqType').addEventListener('change',e=>{$('nqOptsWrap').style.display=e.target.value==='choice'?'block':'none'});
+async function loadQ(){
+  const r=await fetch(SUPABASE_URL+'/rest/v1/rpc/admin_list_questions',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:JSON.stringify({p_passcode:pass})});
+  const d=await r.json();
+  if(!Array.isArray(d)){if(String((d||{}).message||'').includes('bad passcode'))logout();return}
+  questions=d;
+  $('qList').innerHTML=d.length?d.map(q=>`<div class="qcard"><div class="qmain"><div class="qlabel">${esc(q.label)}</div><div class="qmeta">Type: ${esc(q.type)}${q.type==='choice'?' ('+esc((q.options||[]).join(', '))+')':''} &middot; <span class="${q.active?'on':'off'}">${q.active?'Live on form':'Hidden'}</span>${q.required?' &middot; Required':''}</div></div><div class="qactions"><button class="btn" onclick="togQ('${q.id}',${!q.active})">${q.active?'Hide':'Show'}</button><button class="btn" onclick="delQ('${q.id}')">Delete</button></div></div>`).join(''):'<div class="empty" style="padding:24px">No extra questions yet. Add one above and it appears on the form under section 07.</div>';
+}
+async function addQ(){
+  const label=$('nqLabel').value.trim();
+  if(!label){$('qErr').textContent='Write the question first.';return}
+  const type=$('nqType').value;
+  const opts=type==='choice'?$('nqOpts').value.split(',').map(s=>s.trim()).filter(Boolean):[];
+  if(type==='choice'&&!opts.length){$('qErr').textContent='Multiple choice needs at least one option.';return}
+  const r=await fetch(SUPABASE_URL+'/rest/v1/rpc/admin_add_question',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:JSON.stringify({p_passcode:pass,p_label:label,p_type:type,p_options:opts,p_required:$('nqReq').checked})});
+  if(!r.ok){const j=await r.json();$('qErr').textContent=(j&&j.message)||'Could not add the question.';return}
+  $('nqLabel').value='';$('nqOpts').value='';$('nqReq').checked=false;$('qErr').textContent='';
+  loadQ();
+}
+async function togQ(id,active){
+  await fetch(SUPABASE_URL+'/rest/v1/rpc/admin_toggle_question',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:JSON.stringify({p_passcode:pass,p_id:id,p_active:active})});
+  loadQ();
+}
+async function delQ(id){
+  if(!confirm('Delete this question? Past answers already submitted are kept.'))return;
+  await fetch(SUPABASE_URL+'/rest/v1/rpc/admin_delete_question',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:JSON.stringify({p_passcode:pass,p_id:id})});
+  loadQ();
+}
+let questions=[];
+function customBlock(d){
+  const ca=d.custom_answers;if(!ca||typeof ca!=='object')return '';
+  const rows=Object.entries(ca).map(([id,v])=>{
+    const q=(questions||[]).find(x=>x.id===id);
+    return frow(q?q.label:'Extra question',Array.isArray(v)?v.join(', '):v);
+  }).join('');
+  return rows?`<div class="fgroup"><h3>07 &middot; Extra questions</h3>${rows}</div>`:'';
+}
+function downloadCSV(){
+  const head=COLS;
+  const q=v=>{v=v==null?'':Array.isArray(v)?v.join(' | '):String(v);return '"'+v.replace(/"/g,'""')+'"'};
+  const csv='\ufeff'+head.join(',')+'\n'+data.map(d=>head.map(c=>q(d[c])).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download='brand-briefs-'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+}
+(function(){
+  const saved=sessionStorage.getItem('bbAdmin');
+  if(saved){pass=saved;boot()}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key==='Enter'&&$('gate').style.display!=='none')login()});
+})();
+</script>
+</body>
+</html>

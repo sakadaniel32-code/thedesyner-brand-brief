@@ -379,6 +379,19 @@
       </div>
     </div>
 
+    <!-- 07 EXTRA QUESTIONS -->
+    <div class="section" id="customSection" style="display:none">
+      <div class="section-header">
+        <div class="s-num">07</div>
+        <div class="s-text">
+          <div class="s-tag">A Few More</div>
+          <div class="s-title">Extra Questions</div>
+          <div class="s-desc">A few extra questions we'd like you to answer.</div>
+        </div>
+      </div>
+      <div class="field-group" id="customFields"></div>
+    </div>
+
     <!-- SUBMIT -->
     <div class="submit-wrap">
       <div class="submit-note"><strong>You're almost done.</strong> Once submitted, we'll review your brief carefully and follow up within <strong>1&ndash;2 business days</strong>. Everything you've shared is strictly confidential.</div>
@@ -464,6 +477,30 @@ const btnArrow=document.getElementById('btnArrow');
 const success=document.getElementById('successScreen');
 const SB_URL='https://wyffeifapgjyndsickzw.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmZlaWZhcGdqeW5kc2lja3p3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNzM3NjgsImV4cCI6MjEwOTY0OTc2OH0.AXafD7_W1P5VsxagcBbFzX1oYZ3sewuLIEvrbaIaogQ';
+
+function cqEsc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+let customQs=[];
+(async()=>{
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/form_questions?select=*&active=eq.true&order=position.asc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    if(!r.ok)return;
+    customQs=await r.json();
+    if(!Array.isArray(customQs)||!customQs.length)return;
+    const wrap=document.getElementById('customFields');
+    wrap.innerHTML=customQs.map(q=>{
+      const req=q.required?' <span class="req">*</span>':'';
+      if(q.type==='textarea')return '<div class="field"><label>'+cqEsc(q.label)+req+'</label><textarea name="cq_'+q.id+'" rows="4" data-custom="'+q.id+'"></textarea></div>';
+      if(q.type==='choice'){
+        const opts=(q.options||[]).map(o=>'<option value="'+cqEsc(o)+'">'+cqEsc(o)+'</option>').join('');
+        return '<div class="field"><label>'+cqEsc(q.label)+req+'</label><select name="cq_'+q.id+'" data-custom="'+q.id+'"><option value="" disabled selected>Select one</option>'+opts+'</select></div>';
+      }
+      const t=q.type==='email'?'email':(q.type==='phone'?'tel':'text');
+      return '<div class="field"><label>'+cqEsc(q.label)+req+'</label><input type="'+t+'" name="cq_'+q.id+'" data-custom="'+q.id+'"></div>';
+    }).join('');
+    document.getElementById('customSection').style.display='block';
+  }catch(err){}
+})();
+
 form.addEventListener('submit',async e=>{
   e.preventDefault();
   btn.classList.add('loading');
@@ -477,6 +514,16 @@ form.addEventListener('submit',async e=>{
     }
     ['scale_serious_playful','scale_traditional_modern','scale_minimal_expressive','scale_accessible_premium','scale_local_global'].forEach(s=>{if(row[s]!==undefined&&row[s]!=='')row[s]=parseInt(row[s],10);});
     if(!Array.isArray(row.personality))row.personality=[];
+    const missing=customQs.filter(q=>q.required&&!String(row['cq_'+q.id]||'').trim());
+    if(missing.length){
+      const el=form.querySelector('[data-custom="'+missing[0].id+'"]');
+      el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();
+      btnText.textContent='Please answer the required questions';btnArrow.textContent='\u21BA';btn.classList.remove('loading');
+      return;
+    }
+    const ca={};
+    Object.keys(row).filter(k=>k.startsWith('cq_')).forEach(k=>{const v=String(row[k]||'').trim();if(v)ca[k.slice(3)]=v;delete row[k];});
+    if(Object.keys(ca).length)row.custom_answers=ca;
     const res=await fetch(SB_URL+'/rest/v1/brand_briefs',{
       method:'POST',
       headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},
