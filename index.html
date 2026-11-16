@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=685fafb3-b5f5-4eac-8607-b2dab8b6b526
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Brief — The Desyner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#FFFFFF; --paper-warm:#FAFAF8; --line:#E8E6E1;
+    --ink:#0A0A0A; --ink-soft:#1A1A1A;
+    --ember:#F05E1C; --ember-dark:#C94A10; --ember-lt:#FDE7DC;
+    --mute:#6B6B6B; --mute-lt:#9A9A9A;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+  ::selection{background:var(--ember);color:var(--ink)}
+  :focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:2px}
+  .progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--ember);transition:width .2s;z-index:200}
+  .site-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .logo{font-family:'DM Sans',sans-serif;font-weight:500;font-size:20px;letter-spacing:-0.02em;color:var(--ink)}
+  .logo span{color:var(--ember)}
+  .header-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.15em;text-transform:uppercase}
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 48px 64px;overflow:hidden;background:var(--paper)}
+  .hero-content{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+  .eyebrow{display:flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink);opacity:.6;text-transform:uppercase;font-weight:500;margin-bottom:28px}
+  .eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--ember)}
+  .hero h1{font-family:'DM Sans',sans-serif;font-weight:300;font-size:clamp(44px,6.4vw,84px);line-height:1.03;color:var(--ink);letter-spacing:-0.04em}
+  .hero h1 em{font-style:normal;color:var(--ember);display:block}
+  .hero-body{max-width:540px;margin-top:24px;color:var(--mute);font-size:15px;line-height:1.75}
+  .hero-meta{display:flex;gap:36px;margin-top:44px;flex-wrap:wrap}
+  .meta-item{display:flex;flex-direction:column;gap:4px}
+  .meta-item .ml{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+  .meta-item .mv{font-size:13px;font-weight:500;color:var(--ink)}
+  .cta-btn{display:inline-flex;align-items:center;gap:10px;background:var(--ember);color:var(--ink);font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border:none;cursor:pointer;text-decoration:none;margin-top:44px;-webkit-appearance:none;appearance:none;border-radius:0;-webkit-border-radius:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .3s cubic-bezier(.16,1,.3,1),color .3s cubic-bezier(.16,1,.3,1)}
+  .cta-btn:hover{background:var(--ink);color:var(--paper)}
+  .hero-rule{position:absolute;bottom:0;left:0;width:100%;height:1px;background:var(--line)}
+  .form-wrap{position:relative;z-index:1;max-width:740px;margin:0 auto;padding:80px 48px 120px}
+  .section{margin-bottom:80px;opacity:1;transform:translateY(0);transition:opacity .55s ease,transform .55s ease}.js-animate .section{opacity:0;transform:translateY(20px)}
+  .section.visible{opacity:1;transform:translateY(0)}
+  .section-header{display:flex;align-items:flex-start;gap:22px;padding-bottom:24px;margin-bottom:36px;border-bottom:1px solid var(--line)}
+  .s-num{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--ember);min-width:28px;padding-top:6px}
+  .s-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+  .s-title{font-family:'DM Sans',sans-serif;font-weight:300;font-size:clamp(26px,3.4vw,36px);color:var(--ink);letter-spacing:-0.035em;line-height:1.06}
+  .s-desc{font-size:13px;color:var(--mute);margin-top:6px;line-height:1.65}
+  .field-group{display:flex;flex-direction:column;gap:28px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .field{display:flex;flex-direction:column;gap:8px}
+  .field label{font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--ink);text-transform:none}
+  .field label .req{color:var(--ember);margin-left:2px}
+  .hint{font-size:12px;color:var(--mute);line-height:1.5}
+  .field input[type=text],.field input[type=email],.field textarea,.field select{background:var(--paper);border:1px solid var(--line);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;padding:13px 16px;outline:none;width:100%;transition:border-color .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1);border-radius:8px;-webkit-border-radius:8px;appearance:none;-webkit-appearance:none}
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(240,94,28,.18);outline:none}
+  .field input::placeholder,.field textarea::placeholder{color:var(--mute-lt)}
+  .field textarea{resize:vertical;min-height:110px}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9A9A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer}
+  .field select option{background:#FFFFFF;color:var(--ink)}
+  .char-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--mute-lt);text-align:right}
+  .chip-grid{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{display:inline-flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--line);padding:11px 18px;font-size:14px;color:var(--ink);cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;border-radius:8px;-webkit-border-radius:8px;transition:border-color .3s cubic-bezier(.16,1,.3,1),background .3s cubic-bezier(.16,1,.3,1),color .3s cubic-bezier(.16,1,.3,1);-webkit-tap-highlight-color:transparent}
+  .chip:hover{border-color:var(--ink)}
+  .chip.active{border-color:var(--ember);background:var(--ember-lt);color:var(--ink)}
+  .chip input{display:none}
+  .scale-group{display:flex;flex-direction:column;gap:18px}
+  .scale-row{display:grid;grid-template-columns:110px 1fr 110px;align-items:center;gap:16px}
+  .scale-row .sl{font-size:12px;color:var(--mute);text-align:right}
+  .scale-row .sr{font-size:12px;color:var(--mute);text-align:left}
+  .scale-row input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--line);outline:none;cursor:pointer;border:none;padding:0;accent-color:var(--ember);margin:8px 0;border-radius:2px}
+  .scale-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--ember);cursor:pointer;margin-top:-10px;box-shadow:0 1px 4px rgba(10,10,10,.15)}
+  .scale-row input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line);border-radius:2px}
+  .scale-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--ember);border:none;cursor:pointer}
+  .scale-row input[type=range]::-moz-range-track{height:2px;background:var(--line)}
+  .color-picker-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .swatch{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);cursor:pointer;position:relative;transition:transform .15s,border-color .15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .swatch:hover{transform:scale(1.1)}
+  .swatch.on{border-color:var(--ink)}
+  .swatch .tick{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:13px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  .swatch.on .tick{display:flex}
+  .custom-color{display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);padding:8px 12px;font-size:11px;color:var(--mute);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;flex-shrink:0;border-radius:8px;-webkit-border-radius:8px}
+  .custom-color input[type=color]{width:28px;height:28px;border:none;background:none;cursor:pointer;padding:0;border-radius:50%}
+  .submit-wrap{margin-top:64px;padding-top:48px;border-top:1px solid var(--line)}
+  .submit-note{border-left:3px solid var(--ember);background:var(--paper-warm);padding:16px 20px;font-size:13px;color:var(--mute);line-height:1.65;margin-bottom:32px}
+  .submit-note strong{color:var(--ink)}
+  .btn-submit{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:var(--ember);color:var(--ink);font-family:'DM Mono',monospace;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:20px 40px;border:none;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0;-webkit-border-radius:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .3s cubic-bezier(.16,1,.3,1),color .3s cubic-bezier(.16,1,.3,1)}
+  .btn-submit:hover{background:var(--ink);color:var(--paper)}.btn-submit:active{background:var(--ink);color:var(--paper)}
+  .btn-submit.loading{opacity:.6;pointer-events:none}
+  .success-screen{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 48px;min-height:60vh}
+  .success-screen.show{display:flex}
+  .success-icon{width:80px;height:80px;background:var(--ember-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--ember);margin-bottom:28px;animation:popIn .5s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+  .success-screen h2{font-family:'DM Sans',sans-serif;font-weight:300;font-size:clamp(34px,4.8vw,52px);color:var(--ink);letter-spacing:-0.04em;margin-bottom:12px}
+  .success-screen p{font-size:14px;color:var(--mute);max-width:380px;line-height:1.7}
+  .site-footer{text-align:center;padding:24px 48px;border-top:1px solid var(--line);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--mute);position:relative;z-index:1;background:var(--ink);color:rgba(255,255,255,.55)}
+  @media(max-width:580px){.site-header{padding:16px 24px}.hero{padding:100px 24px 52px}.form-wrap{padding:60px 24px 100px}.two-col{grid-template-columns:1fr}.scale-row{grid-template-columns:80px 1fr 80px}.scale-row .sl,.scale-row .sr{font-size:10px}}
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="site-header">
+  <div class="logo">THE <span>DESYNER</span></div>
+  <div class="header-tag">Brand Discovery &middot; Confidential</div>
+</header>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Client Brief</div>
+    <h1>Tell Us About<em>Your Brand.</em></h1>
+    <p class="hero-body">Before we design a single thing, we need to understand who you are, what you stand for, and the feeling you want your brand to create. Answer honestly &mdash; there are no wrong answers. The more real you are, the better the work.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><span class="ml">Prepared by</span><span class="mv">The Desyner</span></div>
+      <div class="meta-item"><span class="ml">Est. time</span><span class="mv">8 &ndash; 12 minutes</span></div>
+      <div class="meta-item"><span class="ml">Confidential</span><span class="mv">Always</span></div>
+    </div>
+    <a href="#form-start" class="cta-btn">Let&rsquo;s Begin &darr;</a>
+  </div>
+  <div class="hero-rule"></div>
+</section>
+
+<main class="form-wrap" id="form-start">
+  <form id='briefForm' novalidate>
+
+    <!-- 01 ABOUT -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-num">01</div>
+        <div class="s-text">
+          <div class="s-tag">The Basics</div>
+          <div class="s-title">About the Business</div>
+          <div class="s-desc">Who you are and what you do &mdash; in your own words.</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="two-col">
+          <div class="field"><label>Your Name <span class="req">*</span></label><input type="text" name="full_name" placeholder="e.g. Amara Osei" required></div>
+          <div class="field"><label>Your Role</label><input type="text" name="role" placeholder="e.g. Founder, CEO"></div>
+        </div>
+        <div class="two-col">
+          <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" name="email" placeholder="you@business.com" required></div>
+          <div class="field"><label>WhatsApp / Phone</label><input type="text" name="phone" placeholder="+234 xxx xxx xxxx"></div>
+        </div>
+        <div class="two-col">
+          <div class="field"><label>Business / Brand Name <span class="req">*</span></label><input type="text" name="business_name" placeholder="e.g. Bloom Lagos" required></div>
+          <div class="field"><label>Industry</label>
+            <select name="industry">
+              <option value="" disabled selected>Select your industry</option>
+              <option>Food &amp; Beverage</option><option>Fashion &amp; Apparel</option><option>Beauty &amp; Wellness</option>
+              <option>Technology / App</option><option>Finance / Fintech</option><option>Health &amp; Medical</option>
+              <option>Real Estate</option><option>Education &amp; Training</option><option>Events &amp; Entertainment</option>
+              <option>Retail &amp; E-commerce</option><option>Hospitality &amp; Travel</option><option>Media &amp; Creative</option>
+              <option>Professional Services</option><option>Non-profit / NGO</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>In one sentence &mdash; what does your business do? <span class="req">*</span></label><input type="text" name="one_liner" placeholder="e.g. We make affordable skincare for African women with sensitive skin." required></div>
+        <div class="field">
+          <label>Tell us about your business in full</label>
+          <span class="hint">What you offer, who you serve, how long you've been around, what makes you different. Don't hold back.</span>
+          <textarea name="business_description" placeholder="Describe your business in as much detail as you'd like..." rows="5" maxlength="1500" id="bizDesc"></textarea>
+          <div class="char-count"><span id="bizCount">0</span> / 1500</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 VISION & MISSION -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-num">02</div>
+        <div class="s-text">
+          <div class="s-tag">Purpose &amp; Direction</div>
+          <div class="s-title">Vision &amp; Mission</div>
+          <div class="s-desc">Great brands are built on a clear sense of purpose. Help us understand what yours is.</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>What is your vision? <span class="req">*</span></label>
+          <span class="hint">Where do you see this brand in 5&ndash;10 years? What does it become at its biggest?</span>
+          <textarea name="vision" placeholder="e.g. To become the most trusted skincare brand for African women across the continent..." rows="4" required></textarea>
+        </div>
+        <div class="field">
+          <label>What is your mission? <span class="req">*</span></label>
+          <span class="hint">What do you do every day and why? The problem you solve and the people you serve.</span>
+          <textarea name="mission" placeholder="e.g. To give African women access to clean, effective skincare that actually works for our skin tone and climate..." rows="4" required></textarea>
+        </div>
+        <div class="field">
+          <label>Why does this business exist? What would be missing without it?</label>
+          <span class="hint">Go deeper than what you sell &mdash; what gap does this brand fill in the world?</span>
+          <textarea name="why_exist" placeholder="e.g. Most skincare brands are made for Western skin. We exist to fix that gap..." rows="4" maxlength="800" id="whyDesc"></textarea>
+          <div class="char-count"><span id="whyCount">0</span> / 800</div>
+        </div>
+        <div class="field">
+          <label>What are your core values? List 3&ndash;5.</label>
+          <span class="hint">The principles that guide every decision your brand makes.</span>
+          <textarea name="core_values" placeholder="e.g. Authenticity, Quality, Community, Transparency, Empowerment" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 AUDIENCE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-num">03</div>
+        <div class="s-text">
+          <div class="s-tag">Target Audience</div>
+          <div class="s-title">Who Are You Talking To?</div>
+          <div class="s-desc">A brand is always a conversation. We need to know exactly who's on the other end.</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Describe your ideal customer in detail <span class="req">*</span></label>
+          <span class="hint">Age, gender, location, income, lifestyle, what they value, what they struggle with, where they spend time online.</span>
+          <textarea name="target_audience" placeholder="e.g. Women aged 25&ndash;38, Lagos and Abuja, middle-income professionals, Instagram-first, values self-care and quality over price..." rows="5" required></textarea>
+        </div>
+        <div class="field">
+          <label>What should your customer feel when they encounter your brand?</label>
+          <span class="hint">The emotional experience &mdash; before, during, and after they interact with you.</span>
+          <textarea name="customer_feeling" placeholder="e.g. They should feel seen. Like this brand was made specifically for them, not adapted for them..." rows="4"></textarea>
+        </div>
+        <div class="field">
+          <label>Who are your 2&ndash;3 closest competitors and what do you think of their brands?</label>
+          <span class="hint">Be honest &mdash; what they do well, what they miss, and where you see your edge.</span>
+          <textarea name="competitors" placeholder="e.g. Brand A is well-known but feels cold and generic. Brand B has great packaging but confusing messaging..." rows="4"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 PERSONALITY -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-num">04</div>
+        <div class="s-text">
+          <div class="s-tag">Brand Personality</div>
+          <div class="s-title">The Feel of Your Brand</div>
+          <div class="s-desc">Brands have personality before they have visuals. Let's define yours.</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Pick up to 5 words that describe your brand <span class="req">*</span></label>
+          <span class="hint">Choose instinctively &mdash; not what sounds right, but what feels true.</span>
+          <div class="chip-grid" id="pChips">
+            <label class="chip"><input type="checkbox" name="personality[]" value="Bold"><span>Bold</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Minimal"><span>Minimal</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Luxurious"><span>Luxurious</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Playful"><span>Playful</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Professional"><span>Professional</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Warm"><span>Warm</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Edgy"><span>Edgy</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Trustworthy"><span>Trustworthy</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Innovative"><span>Innovative</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Natural"><span>Natural</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Energetic"><span>Energetic</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Sophisticated"><span>Sophisticated</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Youthful"><span>Youthful</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Feminine"><span>Feminine</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Masculine"><span>Masculine</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Cultural"><span>Cultural</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Premium"><span>Premium</span></label>
+            <label class="chip"><input type="checkbox" name="personality[]" value="Approachable"><span>Approachable</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Slide to describe where your brand sits between each pair</label>
+          <div class="scale-group">
+            <div class="scale-row"><span class="sl">Serious</span><input type="range" name="scale_serious_playful" min="1" max="10" value="5"><span class="sr">Playful</span></div>
+            <div class="scale-row"><span class="sl">Traditional</span><input type="range" name="scale_traditional_modern" min="1" max="10" value="5"><span class="sr">Modern</span></div>
+            <div class="scale-row"><span class="sl">Minimal</span><input type="range" name="scale_minimal_expressive" min="1" max="10" value="5"><span class="sr">Expressive</span></div>
+            <div class="scale-row"><span class="sl">Accessible</span><input type="range" name="scale_accessible_premium" min="1" max="10" value="5"><span class="sr">Premium</span></div>
+            <div class="scale-row"><span class="sl">Local</span><input type="range" name="scale_local_global" min="1" max="10" value="5"><span class="sr">Global</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>If your brand were a person, describe them</label>
+          <span class="hint">How old? How do they dress, speak, carry themselves? Who do they hang around? What do they read, listen to, believe in?</span>
+          <textarea name="brand_as_person" placeholder="e.g. A 32-year-old Lagos woman. Sharp dresser. Confident but never arrogant. She speaks plainly and means what she says..." rows="5"></textarea>
+        </div>
+        <div class="field">
+          <label>If your brand had a voice, how would it speak?</label>
+          <span class="hint">Tone, language style, energy. Formal or casual? Loud or quiet? Warm or sharp?</span>
+          <textarea name="brand_voice" placeholder="e.g. Direct, warm, and confident. Never corporate. Speaks like a knowledgeable friend, not a brand..." rows="4"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 VISUAL DIRECTION -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-num">05</div>
+        <div class="s-text">
+          <div class="s-tag">Visual Direction</div>
+          <div class="s-title">Colours, Look &amp; Feel</div>
+          <div class="s-desc">Visual intuition matters. Tell us what excites you &mdash; even gut feelings are useful here.</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>What visual style feels right for your brand?</label>
+          <div class="chip-grid">
+            <label class="chip"><input type="radio" name="visual_style" value="Clean &amp; minimal"><span>Clean &amp; minimal</span></label>
+            <label class="chip"><input type="radio" name="visual_style" value="Bold &amp; graphic"><span>Bold &amp; graphic</span></label>
+            <label class="chip"><input type="radio" name="visual_style" value="Luxury &amp; refined"><span>Luxury &amp; refined</span></label>
+            <label class="chip"><input type="radio" name="visual_style" value="Playful &amp; colourful"><span>Playful &amp; colourful</span></label>
+            <label class="chip"><input type="radio" name="visual_style" value="Earthy &amp; organic"><span>Earthy &amp; organic</span></label>
+            <label class="chip"><input type="radio" name="visual_style" value="Techy &amp; digital"><span>Techy &amp; digital</span></label>
+            <label class="chip"><input type="radio" name="visual_style" value="Cultural &amp; Afrocentric"><span>Cultural &amp; Afrocentric</span></label>
+            <label class="chip"><input type="radio" name="visual_style" value="Open to direction"><span>Open to direction</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Do you have colours in mind?</label>
+          <span class="hint">Select any that appeal. Use the custom picker for an exact colour you already have.</span>
+          <div class="color-picker-row">
+            <div class="swatch on" data-color="#0A0A0A" style="background:#0A0A0A;border:1px solid #444" title="Black"><div class="tick">&#10003;</div></div>
+            <div class="swatch" data-color="#FFFFFF" style="background:#FFFFFF;border:1px solid #555" title="White"><div class="tick" style="color:#000;text-shadow:none">&#10003;</div></div>
+            <div class="swatch" data-color="#F05E1C" style="background:#F05E1C" title="Orange"><div class="tick">&#10003;</div></div>
+            <div class="swatch" data-color="#D4A54A" style="background:#D4A54A" title="Gold"><div class="tick" style="color:#000;text-shadow:none">&#10003;</div></div>
+            <div class="swatch" data-color="#C8102E" style="background:#C8102E" title="Red"><div class="tick">&#10003;</div></div>
+            <div class="swatch" data-color="#1D6FA4" style="background:#1D6FA4" title="Blue"><div class="tick">&#10003;</div></div>
+            <div class="swatch" data-color="#1A8C3A" style="background:#1A8C3A" title="Green"><div class="tick">&#10003;</div></div>
+            <div class="swatch" data-color="#8B3A8B" style="background:#8B3A8B" title="Purple"><div class="tick">&#10003;</div></div>
+            <div class="swatch" data-color="#C9A98A" style="background:#C9A98A" title="Nude / Beige"><div class="tick" style="color:#000;text-shadow:none">&#10003;</div></div>
+            <div class="swatch" data-color="#2C2C2C" style="background:#2C2C2C" title="Charcoal"><div class="tick">&#10003;</div></div>
+            <div class="custom-color-text"><input type="text" id="customColorText" name="custom_color_hex" placeholder="Custom hex e.g. #FF0000" style="background:var(--card);border:1px solid var(--border);color:var(--off);font-family:'DM Mono',monospace;font-size:14px;padding:10px 14px;outline:none;width:200px;-webkit-appearance:none;appearance:none;border-radius:0;-webkit-border-radius:0"></div>
+          </div>
+          <input type="hidden" name="preferred_colors" id="colorHidden">
+        </div>
+        <div class="field">
+          <label>Any colours you definitely do NOT want?</label>
+          <input type="text" name="colors_to_avoid" placeholder="e.g. No bright yellow, no hot pink">
+        </div>
+        <div class="field">
+          <label>Name 3&ndash;5 brands whose visual identity you admire &mdash; and why</label>
+          <span class="hint">Any industry. Just brands whose look, feel, or vibe you respect.</span>
+          <textarea name="brand_references" placeholder="e.g. Nike &mdash; the simplicity and confidence. Cowrywise &mdash; they made finance feel human. Zara &mdash; clean and premium..." rows="5"></textarea>
+        </div>
+        <div class="field">
+          <label>Share mood board links, Pinterest boards, or visual references</label>
+          <span class="hint">Paste links to images, Instagram pages, Behance projects &mdash; anything showing the direction you're thinking.</span>
+          <textarea name="visual_links" placeholder="https://pinterest.com/yourboard   |   https://instagram.com/brandyoulike" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 FINAL NOTES -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-num">06</div>
+        <div class="s-text">
+          <div class="s-tag">Open Space</div>
+          <div class="s-title">Anything Else?</div>
+          <div class="s-desc">This is your space. If something matters to you and we haven't asked, say it here.</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Anything we haven't asked that's important to you?</label>
+          <span class="hint">Concerns, past experiences, non-negotiables, things that excite you &mdash; anything at all.</span>
+          <textarea name="final_notes" placeholder="We read every word..." rows="6" maxlength="1200" id="finalNotes"></textarea>
+          <div class="char-count"><span id="finalCount">0</span> / 1200</div>
+        </div>
+        <div class="field">
+          <label>How did you hear about The Desyner?</label>
+          <select name="referral">
+            <option value="" disabled selected>Select one</option>
+            <option>Instagram</option><option>TikTok</option><option>Referral from someone I know</option>
+            <option>Behance / Portfolio</option><option>Google</option><option>LinkedIn</option>
+            <option>Twitter / X</option><option>I've worked with you before</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <div class="submit-note"><strong>You're almost done.</strong> Once submitted, we'll review your brief carefully and follow up within <strong>1&ndash;2 business days</strong>. Everything you've shared is strictly confidential.</div>
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span id="btnText">Submit My Brand Brief</span>
+        <span id="btnArrow">&rarr;</span>
+      </button>
+    </div>
+  </form>
+
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">&#10003;</div>
+    <h2>Brief Received.</h2>
+    <p>Thank you for taking the time. We've got what we need to get started. Expect to hear from us within 1&ndash;2 business days.</p>
+  </div>
+</main>
+
+<footer class="site-footer">THE DESYNER &middot; @thedesyner &middot; hello@thedesyner.com &middot; All submissions are strictly confidential</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('progressBar').style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%';
+});
+// Only animate if IntersectionObserver is supported and working
+try {
+  document.body.classList.add('js-animate');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(s => obs.observe(s));
+  // Fallback: show all after 1.5s in case observer never fires (iOS bug)
+  setTimeout(() => { sections.forEach(s => s.classList.add('visible')); }, 1500);
+  // Also immediately check any sections already in view on load
+  setTimeout(() => {
+    sections.forEach(s => {
+      const r = s.getBoundingClientRect();
+      if (r.top < window.innerHeight) s.classList.add('visible');
+    });
+  }, 100);
+} catch(e) {
+  // Observer not supported — show everything
+  document.querySelectorAll('.section').forEach(s => s.classList.add('visible'));
+}
+
+document.querySelectorAll('.chip').forEach(chip=>{
+  const inp=chip.querySelector('input');
+  if(inp.checked)chip.classList.add('active');
+  inp.addEventListener('change',()=>{
+    if(inp.type==='radio'){
+      document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r=>r.closest('.chip').classList.toggle('active',r.checked));
+    } else chip.classList.toggle('active',inp.checked);
+  });
+});
+
+const pCbs=document.querySelectorAll('#pChips input[type=checkbox]');
+pCbs.forEach(cb=>cb.addEventListener('change',()=>{
+  if([...pCbs].filter(c=>c.checked).length>5){cb.checked=false;cb.closest('.chip').classList.remove('active');}
+}));
+
+const swatches=document.querySelectorAll('.swatch');
+const colorHidden=document.getElementById('colorHidden');
+function syncColors(){
+  const sel=[...swatches].filter(s=>s.classList.contains('on')).map(s=>s.dataset.color);
+  const customText=document.getElementById('customColorText');
+  const customVal=customText&&customText.value.trim();
+  colorHidden.value=sel.join(', ')+(customVal?' + '+customVal+' (custom)':'');
+}
+swatches.forEach(s=>s.addEventListener('click',()=>{s.classList.toggle('on');syncColors();}));
+const customColorText=document.getElementById('customColorText');
+if(customColorText)customColorText.addEventListener('input',syncColors);
+syncColors();
+
+[['bizDesc','bizCount'],['whyDesc','whyCount'],['finalNotes','finalCount']].forEach(([id,cid])=>{
+  const el=document.getElementById(id),ct=document.getElementById(cid);
+  if(el&&ct)el.addEventListener('input',()=>ct.textContent=el.value.length);
+});
+
+const form=document.getElementById('briefForm');
+const btn=document.getElementById('submitBtn');
+const btnText=document.getElementById('btnText');
+const btnArrow=document.getElementById('btnArrow');
+const success=document.getElementById('successScreen');
+const SB_URL='https://wyffeifapgjyndsickzw.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZmZlaWZhcGdqeW5kc2lja3p3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNzM3NjgsImV4cCI6MjEwOTY0OTc2OH0.AXafD7_W1P5VsxagcBbFzX1oYZ3sewuLIEvrbaIaogQ';
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  btn.classList.add('loading');
+  btnText.textContent='Sending\u2026';
+  btnArrow.textContent='\u27F3';
+  try{
+    const row={};
+    for(const [k,v] of new FormData(form).entries()){
+      if(k.endsWith('[]')){const key=k.slice(0,-2);(row[key]=row[key]||[]).push(v);}
+      else row[k]=v;
+    }
+    ['scale_serious_playful','scale_traditional_modern','scale_minimal_expressive','scale_accessible_premium','scale_local_global'].forEach(s=>{if(row[s]!==undefined&&row[s]!=='')row[s]=parseInt(row[s],10);});
+    if(!Array.isArray(row.personality))row.personality=[];
+    const res=await fetch(SB_URL+'/rest/v1/brand_briefs',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},
+      body:JSON.stringify(row)
+    });
+    if(res.ok){
+      form.style.display='none';success.classList.add('show');
+      document.getElementById('form-start').scrollIntoView({behavior:'smooth'});
+    } else {
+      btnText.textContent='Something went wrong \u2014 try again';
+      btnArrow.textContent='\u21BA';btn.classList.remove('loading');
+    }
+  } catch(err){
+    btnText.textContent='Connection error \u2014 try again';
+    btnArrow.textContent='\u21BA';
+    btn.classList.remove('loading');
+  }
+});
